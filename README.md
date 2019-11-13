@@ -7,5 +7,5 @@
 Для работы формы входа нужна база данных содержащая четыре столбца: id, login, password, teacher. Пароль в базе данных
 хранится в хэшированном в виде т.е. даже учитель не сможет через базу данных увидеть пароль определенного пользователя.
 Для хэширования паролей используется алгоритм SHA-256.
-![Форма входа](https://raw.githubusercontent.com/leonidlitvinoff/images/master/login_form_1.png?token=AMCM2LHKHU656EPAFD4YLZ25ZQUXQ)
+![Форма входа](https://github.com/leonidlitvinoff/images/blob/master/login_form_1.png?raw=true)
 ## В интерфейсе учителя реализованы два дополнительных класса отвечающих за создание теста а также ред
