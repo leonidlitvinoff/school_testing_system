@@ -331,7 +331,7 @@ class CreateForm(QWidget, Create_Test_Form):
             else:
                 filename = QFileDialog.getSaveFileName()  # Получаем путь для сохранения файла
                 config.filename = str(filename[0])  # Задаем путь сохранения
-                config['Alls'] = self.asks
+                config['Allуs'] = self.asks
                 config.write()
         except:
             # При ошибке выводим соответствующее сообщение
