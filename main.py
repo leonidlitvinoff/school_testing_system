@@ -232,7 +232,22 @@ class CreateForm(QWidget, Create_Test_Form):
                     if self.lineEdit_5.text() != '':
                         self.asks[self.plainTextEdit.document().toRawText()]['Answer'].append(
                             [self.lineEdit_5.text(), self.checkBox_2.isChecked(), 2])
-                if errors == 0:  # Если в процессе не возникло
+                    # Проверяем, был ли введен хоть один ответ
+                    if len(self.asks[self.plainTextEdit.document().toRawText()]['Answer']) == 0:
+                        a = DialogGenerator('Не добавлен ни один вариант ответа', 'Ошибка', 'critical').get_class()
+                        a.show()
+                        a.exec_()
+                        errors += 1
+                        del self.asks[self.plainTextEdit.document().toRawText()]
+                    elif True not in [i[1] for i in self.asks[self.plainTextEdit.document().toRawText()]['Answer']]:
+                        # Если не добавлен ни один ответ, отмеченный верным
+                        a = DialogGenerator('Не добавлен ни один верный вариант ответа', 'Ошибка',
+                                            'critical').get_class()
+                        a.show()
+                        a.exec_()
+                        errors += 1
+                        del self.asks[self.plainTextEdit.document().toRawText()]
+                if errors == 0:  # Если в процессе не возникло ошибок
                     # Добавляем элемент в ListWidget
                     self.listWidget.addItem(QListWidgetItem(self.plainTextEdit.document().toRawText()))
             else:  # Если выбран определенный вопрос для редактирования
@@ -247,7 +262,6 @@ class CreateForm(QWidget, Create_Test_Form):
                     a.exec_()
                 else:
                     # Если проверки пройдены
-                    del self.asks[self.listWidget.currentItem().text()]  # Удаляем предыдущюю версию элемента
                     # Задаешь текущему элементу в listWidget новое значение
                     errorser = 0
                     if self.radioButton.isChecked():  # Если выбран режим 'Один ответ'
@@ -258,34 +272,50 @@ class CreateForm(QWidget, Create_Test_Form):
                             a.exec_()
                         else:
                             # Сохраняем вопрос в self.asks определенным образом
+                            del self.asks[self.listWidget.currentItem().text()]  # Удаляем предыдущюю версию элемента
                             self.asks[self.plainTextEdit.document().toRawText()] = {}
                             self.asks[self.plainTextEdit.document().toRawText()][
                                 'Ask'] = self.plainTextEdit.document().toRawText()
                             self.asks[self.plainTextEdit.document().toRawText()]['Answer'] = self.lineEdit_6.text()
                             self.asks[self.plainTextEdit.document().toRawText()]['Type'] = 'One'
                     elif self.radioButton_2.isChecked():  # Если выбран режим 'Выбор'
-                        # Сохраняем вопрос в self.asks
-                        self.asks[self.plainTextEdit.document().toRawText()] = {}
-                        self.asks[self.plainTextEdit.document().toRawText()][
-                            'Ask'] = self.plainTextEdit.document().toRawText()
-                        self.asks[self.plainTextEdit.document().toRawText()]['Answer'] = []
-                        self.asks[self.plainTextEdit.document().toRawText()]['Type'] = 'Two'
-                        # Добавляем ответы из непустых полей
-                        if self.lineEdit.text() != '':
-                            self.asks[self.plainTextEdit.document().toRawText()]['Answer'].append(
-                                [self.lineEdit.text(), self.checkBox.isChecked(), 1])
-                        if self.lineEdit_2.text() != '':
-                            self.asks[self.plainTextEdit.document().toRawText()]['Answer'].append(
-                                [self.lineEdit_2.text(), self.checkBox_5.isChecked(), 5])
-                        if self.lineEdit_3.text() != '':
-                            self.asks[self.plainTextEdit.document().toRawText()]['Answer'].append(
-                                [self.lineEdit_3.text(), self.checkBox_4.isChecked(), 4])
-                        if self.lineEdit_4.text() != '':
-                            self.asks[self.plainTextEdit.document().toRawText()]['Answer'].append(
-                                [self.lineEdit_4.text(), self.checkBox_3.isChecked(), 3])
-                        if self.lineEdit_5.text() != '':
-                            self.asks[self.plainTextEdit.document().toRawText()]['Answer'].append(
-                                [self.lineEdit_5.text(), self.checkBox_2.isChecked(), 2])
+                        if self.lineEdit.text() == '' and self.lineEdit_2.text() == '' and \
+                                self.lineEdit_3.text() == '' and self.lineEdit_4.text() == '' and \
+                                self.lineEdit_5.text() == '' and self.lineEdit_6.text() == '':
+                            a = DialogGenerator('Не введен ни один ответ', 'Ошибка', 'critical').get_class()
+                            a.show()
+                            a.exec_()
+                            errorser += 1
+                        elif not (
+                                self.checkBox.isChecked() or self.checkBox_2.isChecked() or self.checkBox_3.isChecked()
+                                or self.checkBox_4.isChecked() or self.checkBox_5):
+                            a = DialogGenerator('Не введен ни один верный ответ', 'Ошибка', 'critical').get_class()
+                            a.show()
+                            a.exec_()
+                        else:
+                            del self.asks[self.listWidget.currentItem().text()]  # Удаляем предыдущюю версию элемента
+                            # Сохраняем вопрос в self.asks
+                            self.asks[self.plainTextEdit.document().toRawText()] = {}
+                            self.asks[self.plainTextEdit.document().toRawText()][
+                                'Ask'] = self.plainTextEdit.document().toRawText()
+                            self.asks[self.plainTextEdit.document().toRawText()]['Answer'] = []
+                            self.asks[self.plainTextEdit.document().toRawText()]['Type'] = 'Two'
+                            # Добавляем ответы из непустых полей
+                            if self.lineEdit.text() != '':
+                                self.asks[self.plainTextEdit.document().toRawText()]['Answer'].append(
+                                    [self.lineEdit.text(), self.checkBox.isChecked(), 1])
+                            if self.lineEdit_2.text() != '':
+                                self.asks[self.plainTextEdit.document().toRawText()]['Answer'].append(
+                                    [self.lineEdit_2.text(), self.checkBox_5.isChecked(), 5])
+                            if self.lineEdit_3.text() != '':
+                                self.asks[self.plainTextEdit.document().toRawText()]['Answer'].append(
+                                    [self.lineEdit_3.text(), self.checkBox_4.isChecked(), 4])
+                            if self.lineEdit_4.text() != '':
+                                self.asks[self.plainTextEdit.document().toRawText()]['Answer'].append(
+                                    [self.lineEdit_4.text(), self.checkBox_3.isChecked(), 3])
+                            if self.lineEdit_5.text() != '':
+                                self.asks[self.plainTextEdit.document().toRawText()]['Answer'].append(
+                                    [self.lineEdit_5.text(), self.checkBox_2.isChecked(), 2])
                     if errorser == 0:  # Проверяем на наличие ошибок
                         self.listWidget.currentItem().setText(self.plainTextEdit.document().toRawText())
 
@@ -301,7 +331,7 @@ class CreateForm(QWidget, Create_Test_Form):
             else:
                 filename = QFileDialog.getSaveFileName()  # Получаем путь для сохранения файла
                 config.filename = str(filename[0])  # Задаем путь сохранения
-                config['Alls'] = self.asks
+                config['Allуs'] = self.asks
                 config.write()
         except:
             # При ошибке выводим соответствующее сообщение
@@ -325,7 +355,6 @@ class CreateForm(QWidget, Create_Test_Form):
         else:
             # Если выбран не новый вопрос
             currentItem = self.asks.get(self.listWidget.currentItem().text())
-            print(currentItem['Ask'])
             self.plainTextEdit.setPlainText(currentItem['Ask'])
             if currentItem['Type'] == 'One':
                 # Если тип вопроса 'Один ответ'
