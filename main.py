@@ -602,12 +602,17 @@ class Formater(QWidget, QuestionForm):
             self.true_answer = []  # Объявляем массив для сохранения верных ответов
             cas = {}  # Объявляем массив для сохранения распарсеных данных
             # Начинаем парсинг и сохранение данных
+            count = 0
             for i in self.config.sections():
-                if i.encode('cp1251').decode("utf-8") != 'Alls':  # Указываем расшифровку из cp1251 в utf8
-                    cas[i.encode('cp1251').decode("utf-8")] = {}  # Во всех строчках
-                    for j in self.config[i].keys():
-                        cas[i.encode('cp1251').decode("utf-8")][j.encode('cp1251').decode("utf-8")] \
-                            = self.config[i][j].encode('cp1251').decode("utf-8")
+                count += 1
+                if count == 1:
+                    pass
+                else:
+                    if i.encode('cp1251').decode("utf") != 'Alls':  # Указываем расшифровку из cp1251 в utf
+                        cas[i.encode('cp1251').decode("utf")] = {}  # Во всех строчках
+                        for j in self.config[i].keys():
+                            cas[i.encode('cp1251').decode("utf")][j] \
+                                = self.config[i][j].encode('cp1251').decode("utf")
             for i in cas:
                 if '"' in cas[i]['answer']:
                     answers = []
