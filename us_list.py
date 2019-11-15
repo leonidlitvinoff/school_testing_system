@@ -2,13 +2,11 @@
 
 # Form implementation generated from reading ui file 'users_list.ui'
 #
-# Created by: PyQt5 UI code generator 5.13.1
+# Created by: PyQt5 UI code generator 5.9.2
 #
 # WARNING! All changes made in this file will be lost!
 
-
 from PyQt5 import QtCore, QtWidgets
-
 
 class Ui_Form(object):
     def setupUi(self, Form):
@@ -39,7 +37,8 @@ class Ui_Form(object):
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
-        Form.setWindowTitle(_translate("Form", "Form"))
+        Form.setWindowTitle(_translate("Form", "Список пользователей"))
         self.pushButton.setText(_translate("Form", "Сохранить"))
         self.pushButton_2.setText(_translate("Form", "Добавить пользователя"))
         self.pushButton_3.setText(_translate("Form", "Удалить пользователя"))
+

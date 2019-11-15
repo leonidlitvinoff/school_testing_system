@@ -2,13 +2,11 @@
 
 # Form implementation generated from reading ui file 'question_form.ui'
 #
-# Created by: PyQt5 UI code generator 5.13.0
+# Created by: PyQt5 UI code generator 5.9.2
 #
 # WARNING! All changes made in this file will be lost!
 
-
 from PyQt5 import QtCore, QtWidgets
-
 
 class Ui_Form(object):
     def setupUi(self, Form):
@@ -44,12 +42,13 @@ class Ui_Form(object):
         self.pushButton.setObjectName("pushButton")
         self.gridLayout.addWidget(self.pushButton, 7, 0, 1, 1)
         self.gridLayout_2.addLayout(self.gridLayout, 0, 0, 1, 1)
+
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
-        Form.setWindowTitle(_translate("Form", "Form"))
+        Form.setWindowTitle(_translate("Form", "Вопрос"))
         self.checkBox_3.setText(_translate("Form", "PushButton"))
         self.label.setText(_translate("Form", "Text Of Answer"))
         self.checkBox_2.setText(_translate("Form", "PushButton"))
@@ -57,3 +56,4 @@ class Ui_Form(object):
         self.checkBox.setText(_translate("Form", "PushButton"))
         self.checkBox_4.setText(_translate("Form", "PushButton"))
         self.pushButton.setText(_translate("Form", "Отправить"))
+

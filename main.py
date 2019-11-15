@@ -4,6 +4,7 @@ import sqlite3
 import sys
 
 import configobj
+from PyQt5.QtGui import QIcon
 from PyQt5.QtWidgets import QApplication, QWidget, QMessageBox, QTableWidgetItem, \
     QListWidgetItem, QFileDialog
 
@@ -30,6 +31,7 @@ class DialogGenerator:
             self.box.setIcon(QMessageBox.Information)
         elif types == 'text':
             pass
+        self.setWindowIcon(QIcon('images\\icon.png'))  # Устанавлием иконку окна
         self.box.setText(text)
         self.box.setWindowTitle(title)
 
@@ -43,6 +45,7 @@ class User_Delete(QWidget, User_Delete_Form):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+        self.setWindowIcon(QIcon('images\\icon.png'))  # Устанавлием иконку окна
         self.pushButton.clicked.connect(self.delete)  # Подключаем саму функцию удаления на кнопку 'Удалить'
         self.con = sqlite3.connect('db.db')  # Подключаем бызу данных
 
@@ -115,6 +118,7 @@ class User_Create(QWidget, User_Create_Form):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+        self.setWindowIcon(QIcon('images\\icon.png'))  # Устанавлием иконку окна
         # Подключаем функции соответствующим кнопкам
         self.pushButton.clicked.connect(self.creator)
         self.pushButton.clicked.connect(self.deletor)
@@ -167,6 +171,7 @@ class CreateForm(QWidget, Create_Test_Form):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+        self.setWindowIcon(QIcon('images\\icon.png'))  # Устанавлием иконку окна
         # Подключаем функцию обновления типа текущего вопроса
         self.listWidget.currentItemChanged.connect(self.update)
         # Подключаем функции соответствующим кнопкам и radioButton
@@ -430,6 +435,7 @@ class Users_Ls(QWidget, Users_List):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+        self.setWindowIcon(QIcon('images\\icon.png'))  # Устанавлием иконку окна
         # Подключаемся к бд
         self.con = sqlite3.connect('db.db')
         # Подключаем функцию выполняемую при изменении текущего выбранного элемента, и прочие
@@ -547,6 +553,7 @@ class Child(QWidget, Child_Window):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+        self.setWindowIcon(QIcon('images\\icon.png'))  # Устанавлием иконку окна
         # Подключаем соответствующие кнопкам функции
         self.pushButton.clicked.connect(self.run_test)
         self.pushButton_2.clicked.connect(self.exits)
@@ -565,6 +572,7 @@ class Test_Result():
         # При инициализации принимает два массива: массив с ответами пользователя и правильными ответами
         self.answer_user = answer_user
         self.answer_true = answer_true
+        self.setWindowIcon(QIcon('images\\icon.png'))  # Устанавлием иконку окна
         # Начинаем формирование текста результата
         text = 'Результаты теста:\n'
         for i in range(len(answer_user)):
@@ -593,6 +601,7 @@ class Formater(QWidget, QuestionForm):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+        self.setWindowIcon(QIcon('images\\icon.png'))  # Устанавлием иконку окна
         # Побуем открыть файл, в случае ошибки - выводим сообщение
         try:
             path = QFileDialog.getOpenFileName()  # Получаем путь к файлу
@@ -751,6 +760,7 @@ class Teacher(QWidget, Teacher_Window):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+        self.setWindowIcon(QIcon('images\\icon.png'))  # Устанавлием иконку окна
         # Подключаем кнопкам соответствующие функции
         self.pushButton.clicked.connect(self.users)
         self.pushButton_2.clicked.connect(self.create_test)
@@ -770,6 +780,7 @@ class LoginForm(QWidget, Auth_Form):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+        self.setWindowIcon(QIcon('images\\icon.png'))  # Устанавлием иконку окна
         # Подключаем кнопке функцию login
         self.pushButton.clicked.connect(self.login)
 

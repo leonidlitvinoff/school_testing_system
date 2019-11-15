@@ -2,13 +2,11 @@
 
 # Form implementation generated from reading ui file 'child_form.ui'
 #
-# Created by: PyQt5 UI code generator 5.13.0
+# Created by: PyQt5 UI code generator 5.9.2
 #
 # WARNING! All changes made in this file will be lost!
 
-
 from PyQt5 import QtCore, QtWidgets
-
 
 class Ui_Form(object):
     def setupUi(self, Form):
@@ -31,6 +29,7 @@ class Ui_Form(object):
 
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
-        Form.setWindowTitle(_translate("Form", "Form"))
+        Form.setWindowTitle(_translate("Form", "Ученик"))
         self.pushButton.setText(_translate("Form", "Пройти тест"))
         self.pushButton_2.setText(_translate("Form", "Выйти"))
+
