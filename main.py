@@ -31,7 +31,6 @@ class DialogGenerator:
             self.box.setIcon(QMessageBox.Information)
         elif types == 'text':
             pass
-        self.setWindowIcon(QIcon('images\\icon.png'))  # Устанавлием иконку окна
         self.box.setText(text)
         self.box.setWindowTitle(title)
 
@@ -179,9 +178,16 @@ class CreateForm(QWidget, Create_Test_Form):
         self.pushButton_2.clicked.connect(self.save_test)
         self.radioButton_2.clicked.connect(self.moreResultsMode)
         self.pushButton_3.clicked.connect(self.save_ask)
+        self.pushButton.clicked.connect(self.delete_ask)
+        self.pushButton.setEnabled(False)
         # Создаем общий словарь, для хранения созданных вопросов
         self.asks = {}
         self.radioButton.click()  # Включаем стандартный режим 'Один вариант ответа'
+
+    def delete_ask(self):  # Функция, удаляющая вопрос
+        m = self.listWidget.currentItem().text()
+        self.listWidget.takeItem([i for i in self.asks.keys()].index(self.listWidget.currentItem().text()) + 1)
+        del self.asks[m]
 
     def save_ask(self):  # Функция, отвечающая за сохранение текущего вопроса в self.asks
         if self.plainTextEdit.document().toRawText() == '':
@@ -357,8 +363,10 @@ class CreateForm(QWidget, Create_Test_Form):
             # Включаем возможность выбора любого режима
             self.radioButton.setEnabled(True)
             self.radioButton_2.setEnabled(True)
+            self.pushButton.setEnabled(False)  # Выключаем возможность удаления вопроса
         else:
             # Если выбран не новый вопрос
+            self.pushButton.setEnabled(True)  # Включаем возможность удаления вопроса
             currentItem = self.asks.get(self.listWidget.currentItem().text())
             self.plainTextEdit.setPlainText(currentItem['Ask'])
             if currentItem['Type'] == 'One':
@@ -572,23 +580,14 @@ class Test_Result():
         # При инициализации принимает два массива: массив с ответами пользователя и правильными ответами
         self.answer_user = answer_user
         self.answer_true = answer_true
-        self.setWindowIcon(QIcon('images\\icon.png'))  # Устанавлием иконку окна
         # Начинаем формирование текста результата
         text = 'Результаты теста:\n'
         for i in range(len(answer_user)):
             text += f'Вопрос №{i + 1}\n'
-            if type(answer_user[i]) is list:
-                # Определяем, если ответ - лист, начинаем перебор, и сохранение соответствующей строки
-                for j in range(len(self.answer_user[i])):
-                    if self.answer_user[i][j] == self.answer_true[i][j]:
-                        text += f'\t{j + 1}) Правильно\n'
-                    else:
-                        text += f'\t{j + 1}) Неправильно\n'
+            if self.answer_user[i] == self.answer_true[i]:
+                text += f'\t Правильно\n'
             else:
-                if self.answer_user[i] == self.answer_true[i]:
-                    text += f'\t Правильно\n'
-                else:
-                    text += f'\t Неправильно\n'
+                text += f'\t Неправильно\n'
         # Создаем соответствующее сообщение с текстом результата
         a = DialogGenerator(text, 'Результаты', 'text').get_class()
         a.show()
