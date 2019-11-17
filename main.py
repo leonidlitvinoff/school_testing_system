@@ -371,13 +371,15 @@ class CreateForm(QWidget, Create_Test_Form):
             self.plainTextEdit.setPlainText(currentItem['Ask'])
             if currentItem['Type'] == 'One':
                 # Если тип вопроса 'Один ответ'
-                self.radioButton.click()  # Включаем режим 'Один верный ответ'
                 self.radioButton_2.setEnabled(False)  # Отключаем возможность включить другой режим
+                self.radioButton.setEnabled(True)
                 self.lineEdit_6.setText(currentItem['Answer'])  # Задаем полю ответа сохраненное значение
+                self.radioButton.click()  # Включаем режим 'Один верный ответ'
             elif currentItem['Type'] == 'Two':
                 # Если тип вопроса 'Выбор'
-                self.radioButton_2.click()  # Включаем режим 'Выбор'
                 self.radioButton.setEnabled(False)  # Отключаем возможность включить другой режим
+                self.radioButton_2.setEnabled(True)
+                self.radioButton_2.click()  # Включаем режим 'Выбор'
                 for i in currentItem['Answer']:
                     # Восстанавляем и задаем переменным сохраненные значения
                     if i[2] == 1:
