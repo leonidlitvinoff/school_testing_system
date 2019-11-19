@@ -575,7 +575,7 @@ class Child(QWidget, Child_Window):
         sys.exit()
 
 
-class Test_Result():
+class Test_Result:
     '''Класс, отвечающий за формирование сообщения о результате теста'''
 
     def __init__(self, answer_user, answer_true):
@@ -765,6 +765,7 @@ class Teacher(QWidget, Teacher_Window):
         # Подключаем кнопкам соответствующие функции
         self.pushButton.clicked.connect(self.users)
         self.pushButton_2.clicked.connect(self.create_test)
+        self.pushButton_4.clicked.connect(self.exits)
 
     def create_test(self):  # Функция, запускающая форму создания теста
         self.ex2 = CreateForm()
@@ -773,6 +774,9 @@ class Teacher(QWidget, Teacher_Window):
     def users(self):  # Функция, запускающая форму списка пользователей
         self.ex = Users_Ls()
         self.ex.show()
+
+    def exits(self):  # Функция, отвечающая за завершение программы
+        sys.exit()
 
 
 class LoginForm(QWidget, Auth_Form):
